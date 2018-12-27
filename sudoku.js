@@ -157,7 +157,7 @@ function tableroATxt(tablero){
     }
     s += "\n";
   }
-  Logger.log("\n" + s)
+  Logger.log("\nTABLERO\n" + s)
   return(s)
 }
 
