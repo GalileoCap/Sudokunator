@@ -61,7 +61,7 @@ function iniciarEnBrowser(){
   uiBtn = document.getElementById("procesar")
   uiBtn.onclick = function(){
     var tableroInicial = tableroDeTxt(uiText.value);
-    uiText.value = crearTablero(tableroInicial);
+    uiText.value = completarTablero(tableroInicial);
   }
 }
 //*****************************************************************
