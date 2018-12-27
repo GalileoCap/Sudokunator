@@ -1,6 +1,8 @@
 //*****************************************************************
 //S: Utilidades
 
+Logger = this.Logger || console; //A: Asi funciona en GDOCS, browser, node, etc.
+
 function logm(tipo, nivel, mensaje, datos) { //U: Loggea y (a futuro) me permite sacar la informacion qe no me interesa
   Logger.log(tipo + ":" + mensaje + ":" + JSON.stringify(datos));
 }
