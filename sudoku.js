@@ -59,7 +59,9 @@ function iniciarEnBrowser(){
   uiText = document.getElementById("tablero")
   
   uiBtn = document.getElementById("procesar")
-  uiBtn.onclick = function(){generarTableros()}
+  uiBtn.onclick = function(){
+    uiText.value = crearTablero()
+  }
 }
 //*****************************************************************
 //S: Recorrer el tablero
