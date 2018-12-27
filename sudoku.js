@@ -37,7 +37,7 @@ function comparadorArray(cartel, r_esperado, r){ //U: Compara dos arrays y me di
 }
 
 //*****************************************************************
-//S: Menu para qe le usuarie pueda usar estas funciones
+//S: Para la interfaz del GDocs
 
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
@@ -50,6 +50,15 @@ function saludar() {
   Browser.msgBox("Alo");
 };
 
+//*****************************************************************
+//S: Para la interfaz del browser
+
+function iniciarEnBrowser(){
+  var text = document.getElementById("tablero")
+  
+  var btn = document.getElementById("procesar")
+  btn.onclick(function(){generarTableros()})
+}
 //*****************************************************************
 //S: Recorrer el tablero
 
