@@ -197,16 +197,17 @@ function tableroDeTxt(txt){
 
 function completarTablero(tableroInicial) {
   var listo = false;
-
-  probar: while (!listo){
-    var tablero = tableroInicial || new Array(9 * 9); //A: Defini tablero
+  var qedanIntentos = 1000;
+  
+  probar: while (!listo && qedanIntentos){ qedanIntentos--;
+    var tablero = tableroInicial.concat([]) || new Array(9 * 9); //A: Defini tablero, copie inicial si habia
     
     for (var y = 0; y < 9; y++) { //A: Voy fila por fila
       for (var x = 0; x < 9; x++) { //A: Para cada fila paso por todas las columnas
         var disp = disponiblesXY(tablero, x, y);
         var numerosDisponibles = posicionesDisponibles(disp);
         
-        if (tablero[y * 9 + x] == null && numerosDisponibles.length < 1) {
+        if (tablero[y * 9 + x] == null && numerosDisponibles.length == 0) {
           logm("ERR", 1, "disponibles no hay para", {x:x, y:y});
           continue probar;
         } else {
