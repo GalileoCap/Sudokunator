@@ -60,7 +60,8 @@ function iniciarEnBrowser(){
   
   uiBtn = document.getElementById("procesar")
   uiBtn.onclick = function(){
-    uiText.value = crearTablero()
+    var tableroInicial = tableroDeTxt(uiText.value);
+    uiText.value = crearTablero(tableroInicial);
   }
 }
 //*****************************************************************
@@ -161,7 +162,7 @@ function t_disponibles(){
 }
 
 //******************************************************************
-//S: Crear el tablero
+//S: Mueve de txt a array o viceversa
 
 function tableroATxt(tablero){
   var s = '';
@@ -176,23 +177,43 @@ function tableroATxt(tablero){
   return(s)
 }
 
-function crearTablero() {
+function tableroDeTxt(txt){
+  var r = new Array(9 * 9);
+  
+  var lineas = txt.split("\n");
+  for (var i = 0; i < 9; i++) {
+    var limpio = (lineas[i] || "").replace(/.*?:\s*/, "");
+    var elementos = limpio.split(/\s+/);
+    for (var j = 0; j < 9 ; j++) {
+      var x = parseInt(elementos[j] || "_");
+      r[i * 9 + j] = isNaN(x) ? null : x;
+    }
+  }
+  return(r);
+}
+
+//*********************************************
+//S: Crea y resuelve tableros
+
+function completarTablero(tableroInicial) {
   var listo = false;
 
   probar: while (!listo){
-    var tablero = new Array(9 * 9); //A: Defini tablero
+    var tablero = tableroInicial || new Array(9 * 9); //A: Defini tablero
     
     for (var y = 0; y < 9; y++) { //A: Voy fila por fila
       for (var x = 0; x < 9; x++) { //A: Para cada fila paso por todas las columnas
         var disp = disponiblesXY(tablero, x, y);
         var numerosDisponibles = posicionesDisponibles(disp);
         
-        if (numerosDisponibles.length < 1) {
+        if (tablero[y * 9 + x] == null && numerosDisponibles.length < 1) {
           logm("ERR", 1, "disponibles no hay para", {x:x, y:y});
           continue probar;
         } else {
-          var rand = numerosDisponibles[Math.floor(Math.random() * numerosDisponibles.length)] //A: Selecciono un numero al azar de entre los qe podia poner
-          tablero[y * 9 + x] = rand + 1;
+          if (tablero[y * 9 + x] == null){ //A: La posicion estaba vacia, la lleno
+            var rand = numerosDisponibles[Math.floor(Math.random() * numerosDisponibles.length)] //A: Selecciono un numero al azar de entre los qe podia poner
+            tablero[y * 9 + x] = rand + 1;
+          }
         }
       }
     }
@@ -205,7 +226,7 @@ function generarTableros(){
   var vistos = {};
   
   for (var i = 0; i < 10; i++){
-    var t = crearTablero();
+    var t = completarTablero();
     vistos[t] = (vistos[t] || 0) + 1;
   }
   Logger.log(vistos);
