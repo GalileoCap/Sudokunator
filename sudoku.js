@@ -52,12 +52,14 @@ function saludar() {
 
 //*****************************************************************
 //S: Para la interfaz del browser
+var uiText;
+var uiBtn;
 
 function iniciarEnBrowser(){
-  var text = document.getElementById("tablero")
+  uiText = document.getElementById("tablero")
   
-  var btn = document.getElementById("procesar")
-  btn.onclick(function(){generarTableros()})
+  uiBtn = document.getElementById("procesar")
+  uiBtn.onclick = function(){generarTableros()}
 }
 //*****************************************************************
 //S: Recorrer el tablero
