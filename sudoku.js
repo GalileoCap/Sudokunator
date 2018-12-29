@@ -76,7 +76,8 @@ function iniciarEnBrowser(){
 	uiBtn2 = document.getElementById("corregir")
 	uiBtn2.onclick = function() {
 		var tableroACorregir = tableroDeTxt(uiText.value);
-		uiText.value = corregirTablero(tableroInicial);
+		uiText.value = corregirTablero(tableroACorregir);
+		logm("DBG", 1, "test", "test")
 	}
 }
 
