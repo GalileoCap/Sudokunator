@@ -226,7 +226,11 @@ function completarTablero(tableroInicial, nuevo) {
     var qedanIntentos = 1000;
 
     probar: while (!listo && qedanIntentos){ qedanIntentos--;
-                                            var tablero = tableroInicial.concat([]) || new Array(9 * 9); //A: Defini tablero, copie inicial si habia
+											if (nuevo == true) { //A: Si le usuarie qiere crear un tablero nuevo lo hago de cero (...)
+												var tablero = new Array(9 * 9);
+											} else { //(...)Si qiere completar un tablero, uso el qe ya existe
+                                            var tablero = tableroInicial.concat([]);
+											}
     
                                             for (var y = 0; y < 9; y++) { //A: Voy fila por fila
                                                 for (var x = 0; x < 9; x++) { //A: Para cada fila paso por todas las columnas
@@ -244,17 +248,17 @@ function completarTablero(tableroInicial, nuevo) {
                                                     }
                                                 }
                                             }
-											tableroUsado = tablero;
+											tableroUsado = tablero; //A: Para comparar en la correccion
 											if(nuevo == true) {
 												for (var y = 0; y < 9; y++){
-													for (var x= 0; x < 9; x++){
+													for (var x = 0; x < 9; x++){
 														var disp = disponiblesXY(tablero, x, y);
-														var numerosDisponibles = posicionesDisponibles(disp);
+														var numerosDisponibles = posicionesDisponibles(disp); //A: Me fijo cuantos numeros disponibles hay
 
-														if (numerosDisponibles.length < 3){
-															var rand = Math.floor(Math.random());
+														if (numerosDisponibles.length < 0){ //ESTE < 0 ESTA TEMPORALMENTE PARA PODER DEJAR LA PAGINA Y QE SIGA ANDANDO //A: Si todavia no escondi tres valores (para esta posicion)
+															var rand = Math.floor(Math.random()); //A: "Tiro una moneda" para ver si lo escondo o no (las chances de qe qe no esconda ninguno es de 1/(2^81))
 															if (rand == 0){
-													tablero[y * 9 + x] = "_";
+																tablero[y * 9 + x] = "_";
 															}
 														}
 													}
@@ -262,7 +266,9 @@ function completarTablero(tableroInicial, nuevo) {
 											}
 											listo = true;
                                            }
-
+	if (!qedanIntentos){
+		alert("Me qedé sin intentos, no puedo resolver este sudoku")
+	}
     return(tableroATxt(tablero));
 }
 
@@ -279,11 +285,12 @@ function generarTableros(){
 
 function corregirTablero(tableroACorregir) {
 	var tablero = tableroACorregir.concat([])
-	var errores = comparadorArray("Errores de usuario", tableroUsado, tablero);
+	var errores = comparadorArray("Checkeo de corrección", tableroUsado, tablero);
 	for (var i = 0; i < errores.length; i++) {
 		if (tablero[i] != null){ //A: No qiero qe corrija espacios qe sigen vacios
 			tablero[errores[i]] = "/"
 		}
 	}
+	alert("Ahí corregí, todos los qe estaban mal los reemplacé con un '/'")
 	return(tableroATxt(tablero));
 } 
