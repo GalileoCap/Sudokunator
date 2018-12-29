@@ -1,9 +1,9 @@
 <html>
 <body>
-  <p> El boton genera un sudoku completo. Pero si reemplazas numeros por _ en la grilla de 9*9 intenta completarlo </p>
+  <p> Si dejás la caja de texto en blanco el botón "Generar/Completar" te crea un sudoku.\nSi en la caja de texto escribís una linea de numeros (de esta forma "1 2 _ 4 _ 5(...)") te lo completa asegurándose qe esos numeros estén en las posiciones qe elegiste.\n\nMientras qe el botón "Corregir" revisa si llenaste los espacios previamente vacíos con los números correctos</p>
   <textarea id="tablero" rows="9" cols="35"></textarea>
   <br>
-  <button id="procesar"> Completar </button>
+  <button id="procesar"> Generar/Completar </button>\t<button id="corregir"> Corregir </button>
   <script src="sudoku.js"></script>
   <script> iniciarEnBrowser() </script>
 </body>
