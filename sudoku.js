@@ -76,8 +76,8 @@ function iniciarEnBrowser(){
 	uiBtn2 = document.getElementById("corregir")
 	uiBtn2.onclick = function() {
 		if (tableroUsado.length != 0){
-		var tableroACorregir = tableroDeTxt(uiText.value);
-		uiText.value = corregirTablero(tableroACorregir);
+			var tableroACorregir = tableroDeTxt(uiText.value);
+			uiText.value = corregirTablero(tableroACorregir);
 		} else{
 			alert("Probá generar un tablero primero")
 		}
