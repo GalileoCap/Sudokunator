@@ -75,9 +75,12 @@ function iniciarEnBrowser(){
 	
 	uiBtn2 = document.getElementById("corregir")
 	uiBtn2.onclick = function() {
+		if (tableroUsado.length != 0){
 		var tableroACorregir = tableroDeTxt(uiText.value);
 		uiText.value = corregirTablero(tableroACorregir);
-		logm("DBG", 1, "test", "test")
+		} else{
+			alert("Probá generar un tablero primero")
+		}
 	}
 }
 
@@ -252,10 +255,11 @@ function generarTableros(){
 }
 
 function corregirTablero(tableroACorregir) {
+	var tablero = tableroACorregir.concat([])
 	var errores = comparadorArray("Errores de usuario", tableroUsado, tablero);
 	for (var i = 0; i < errores.length; i++) {
 		if (tablero[i] != null){ //A: No qiero qe corrija espacios qe sigen vacios
-			tablero[i] = "/"
+			tablero[errores[i]] = "/"
 		}
 	}
 	return(tableroATxt(tablero));
