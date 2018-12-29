@@ -75,12 +75,8 @@ function iniciarEnBrowser(){
 	
 	uiBtn2 = document.getElementById("corregir")
 	uiBtn2.onclick = function() {
-		if (tableroUsado.length != 0){
-			var tableroACorregir = tableroDeTxt(uiText.value);
-			uiText.value = corregirTablero(tableroInicial);
-		} else {
-			alert("No puedo corregir si hay ningún tablero. Probá generar uno primero")
-		}
+		var tableroACorregir = tableroDeTxt(uiText.value);
+		uiText.value = corregirTablero(tableroInicial);
 	}
 }
 
