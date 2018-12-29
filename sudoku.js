@@ -63,18 +63,25 @@ function saludar() {
 var uiText;
 var uiBtn1;
 var uiBtn2;
+var uiBtn3;
 
 function iniciarEnBrowser(){
     uiText = document.getElementById("tablero")
   
-    uiBtn1 = document.getElementById("procesar")
+    uiBtn1 = document.getElementById("crearNuevo")
     uiBtn1.onclick = function(){
         var tableroInicial = tableroDeTxt(uiText.value);
-        uiText.value = completarTablero(tableroInicial);
+        uiText.value = completarTablero(tableroInicial, true);
     }
 	
-	uiBtn2 = document.getElementById("corregir")
-	uiBtn2.onclick = function() {
+	uiBtn2 = document.getElementById("completar")
+	uiBtn2.onclick = function(){
+        var tableroInicial = tableroDeTxt(uiText.value);
+        uiText.value = completarTablero(tableroInicial, false);
+	}
+
+	uiBtn3 = document.getElementById("corregir")
+	uiBtn3.onclick = function() {
 		if (tableroUsado.length != 0){
 			var tableroACorregir = tableroDeTxt(uiText.value);
 			uiText.value = corregirTablero(tableroACorregir);
@@ -212,12 +219,12 @@ function tableroDeTxt(txt){
 }
 
 //*********************************************
-//S: Crea y resuelve tableros
+//S: Crea, resuelve y corrige tableros
 
-function completarTablero(tableroInicial) {
+function completarTablero(tableroInicial, nuevo) {
     var listo = false;
     var qedanIntentos = 1000;
-  
+
     probar: while (!listo && qedanIntentos){ qedanIntentos--;
                                             var tablero = tableroInicial.concat([]) || new Array(9 * 9); //A: Defini tablero, copie inicial si habia
     
@@ -237,9 +244,25 @@ function completarTablero(tableroInicial) {
                                                     }
                                                 }
                                             }
-                                            listo = true;
+											tableroUsado = tablero;
+											if(nuevo == true) {
+												for (var y = 0; y < 9; y++){
+													for (var x= 0; x < 9; x++){
+														var disp = disponiblesXY(tablero, x, y);
+														var numerosDisponibles = posicionesDisponibles(disp);
+
+														if (numerosDisponibles.length < 3){
+															var rand = Math.floor(Math.random());
+															if (rand == 0){
+													tablero[y * 9 + x] = "_";
+															}
+														}
+													}
+												}
+											}
+											listo = true;
                                            }
-	tableroUsado = tablero;
+
     return(tableroATxt(tablero));
 }
 
